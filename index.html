@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Estate Payment</title>
+</head>
+<body>
+  <h2>Make a Payment</h2>
+  <button id="payBtn">Pay with Visa ($10)</button>
+
+  <script>
+    document.getElementById('payBtn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/pay', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: 10,
+            currency: 'USD',
+            item: 'Real Estate Deposit',
+          }),
+        });
+        const data = await res.json();
+
+        if (data.paymentLink) {
+          window.location.href = data.paymentLink;
+        } else {
+          alert('Failed to get payment link.');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Something went wrong.');
+      }
+    });
+  </script>
+</body>
+</html>
