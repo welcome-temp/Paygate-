@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <title>Real Estate Payment</title>
@@ -10,17 +10,7 @@
   <script>
     document.getElementById('payBtn').addEventListener('click', async () => {
       try {
-        const res = await fetch('/api/pay', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            amount: 10,
-            currency: 'USD',
-            item: 'Real Estate Deposit',
-          }),
-        });
+        const res = await fetch('/api/pay');
         const data = await res.json();
 
         if (data.paymentLink) {
