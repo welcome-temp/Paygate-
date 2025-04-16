@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 // Generate payment link
-app.get('/api/pay', async (req, res) => {
+app.post('/api/pay', async (req, res) => {
   const wallet = '0x4F7D9e659BE333096469C5DBE595C0525ae39E30';
   const orderId = Date.now();
   const callbackUrl = encodeURIComponent(`${PUBLIC_DOMAIN}/api/payment-callback?orderId=${orderId}`);
