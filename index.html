@@ -11,7 +11,15 @@
     document.getElementById('payBtn').addEventListener('click', async () => {
       try {
         const res = await fetch('/api/pay');
-        const data = await res.json();
+        const text = await res.text(); // Read raw response body
+
+        console.log('Raw Response:', text); // Debug log
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = JSON.parse(text); // Parse manually so we can catch JSON issues
 
         if (data.paymentLink) {
           window.location.href = data.paymentLink;
@@ -19,7 +27,7 @@
           alert('Failed to get payment link.');
         }
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Fetch error:', err);
         alert('Something went wrong.');
       }
     });
